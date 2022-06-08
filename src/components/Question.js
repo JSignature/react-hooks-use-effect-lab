@@ -6,9 +6,12 @@ function Question({ question, onAnswered }) {
   // add useEffect code
   useEffect(() => {
     if (timeRemaining > 0) {
-      setTimeout(() => {
+      const timerID = setTimeout(() => {
         setTimeRemaining(timeRemaining - 1)
       }, 1000)
+      return function cleanup() {
+        clearTimeout(timerID)
+      }
     } else {
       onAnswered(false)
       setTimeRemaining(10)
